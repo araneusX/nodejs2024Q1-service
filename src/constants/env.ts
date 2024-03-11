@@ -61,7 +61,7 @@ const parsePeriod = (period = ''): number | null => {
   }
 };
 
-export const ENV = {
+export const getEnv = () => ({
   PORT: parseVariable(process.env.PORT, 4000),
   CRYPT_SALT: parseVariable(process.env.CRYPT_SALT, 10),
   JWT_SECRET_KEY: parseVariable(process.env.JWT_SECRET_KEY, 'JWT_SECRET_KEY'),
@@ -73,4 +73,4 @@ export const ENV = {
     parsePeriod(process.env.TOKEN_EXPIRE_TIME) ?? 60 * 60 * 1000,
   TOKEN_REFRESH_EXPIRE_TIME_MS:
     parsePeriod(process.env.TOKEN_REFRESH_EXPIRE_TIME) ?? 24 * 60 * 60 * 1000,
-};
+});

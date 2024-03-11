@@ -2,14 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, UpdatePasswordDto } from './user.dto';
 import { compare, hash } from 'bcrypt';
-import { ENV } from 'src/constants';
+import { getEnv } from 'src/constants';
 
 @Injectable()
 export class UserService {
   async createNewUser({ password, login }: CreateUserDto): Promise<UserEntity> {
     const user = new UserEntity();
     user.login = login;
-    user.password = await hash(password, ENV.CRYPT_SALT);
+    user.password = await hash(password, getEnv().CRYPT_SALT);
 
     return user.save();
   }
@@ -57,7 +57,7 @@ export class UserService {
       );
     }
 
-    user.password = await hash(newPassword, ENV.CRYPT_SALT);
+    user.password = await hash(newPassword, getEnv().CRYPT_SALT);
 
     return user.save();
   }
