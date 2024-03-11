@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserEntity } from './user.entity';
 import { CreateUserDto, UpdatePasswordDto } from './user.dto';
 import { compare, hash } from 'bcrypt';
+import { ENV } from 'src/constants';
 
 @Injectable()
 export class UserService {
@@ -34,10 +35,13 @@ export class UserService {
     const isCorrectOldPassword = await compare(oldPassword, user.password);
 
     if (!isCorrectOldPassword) {
-      throw new HttpException('oldPassword is wrong', HttpStatus.FORBIDDEN);
+      throw new HttpException(
+        'Provided oldPassword is wrong',
+        HttpStatus.FORBIDDEN,
+      );
     }
 
-    user.password = await hash(newPassword, 1);
+    user.password = await hash(newPassword, ENV.CRYPT_SALT);
 
     return user.save();
   }
