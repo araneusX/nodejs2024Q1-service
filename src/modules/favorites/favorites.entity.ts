@@ -1,6 +1,6 @@
-import { AlbumEntity } from 'src/album/album.entity';
-import { ArtistEntity } from 'src/artist/artist.entity';
-import { TrackEntity } from 'src/track/track.entity';
+import { AlbumEntity } from 'src/modules/album/album.entity';
+import { ArtistEntity } from 'src/modules/artist/artist.entity';
+import { TrackEntity } from 'src/modules/track/track.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

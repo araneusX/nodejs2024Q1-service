@@ -1,4 +1,4 @@
-import { AlbumEntity } from 'src/album/album.entity';
+import { AlbumEntity } from 'src/modules/album/album.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

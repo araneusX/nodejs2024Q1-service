@@ -1,4 +1,4 @@
-import { ArtistEntity } from 'src/artist/artist.entity';
+import { ArtistEntity } from 'src/modules/artist/artist.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
