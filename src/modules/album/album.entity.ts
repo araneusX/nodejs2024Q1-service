@@ -17,7 +17,7 @@ export class AlbumEntity extends BaseEntity {
   name: string;
 
   @Column('int')
-  year: string;
+  year: number;
 
   @Column({ nullable: true })
   artistId: string;

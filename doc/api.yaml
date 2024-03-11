@@ -83,6 +83,89 @@ paths:
         "204":
           description: ""
       tags: *a1
+  /album:
+    get:
+      operationId: AlbumController_getAllAlbums
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ViewAlbumDto"
+      tags: &a2
+        - Album
+    post:
+      operationId: AlbumController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAlbumDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewAlbumDto"
+      tags: *a2
+  /album/{albumId}:
+    get:
+      operationId: AlbumController_getAlbumById
+      parameters:
+        - name: albumId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewAlbumDto"
+      tags: *a2
+    put:
+      operationId: AlbumController_updatePassword
+      parameters:
+        - name: albumId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateAlbumDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewAlbumDto"
+      tags: *a2
+    delete:
+      operationId: AlbumController_deleteAlbum
+      parameters:
+        - name: albumId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags: *a2
   /user:
     get:
       operationId: UserController_getAllUsers
@@ -96,7 +179,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ViewUserDto"
-      tags: &a2
+      tags: &a3
         - User
     post:
       operationId: UserController_create
@@ -114,7 +197,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ViewUserDto"
-      tags: *a2
+      tags: *a3
   /user/{userId}:
     get:
       operationId: UserController_getUserById
@@ -131,7 +214,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ViewUserDto"
-      tags: *a2
+      tags: *a3
     put:
       operationId: UserController_updatePassword
       parameters:
@@ -153,7 +236,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ViewUserDto"
-      tags: *a2
+      tags: *a3
     delete:
       operationId: UserController_deleteUser
       parameters:
@@ -165,7 +248,90 @@ paths:
       responses:
         "204":
           description: ""
-      tags: *a2
+      tags: *a3
+  /artist:
+    get:
+      operationId: ArtistController_getAllArtists
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ViewArtistDto"
+      tags: &a4
+        - Artist
+    post:
+      operationId: ArtistController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateArtistDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewArtistDto"
+      tags: *a4
+  /artist/{artistId}:
+    get:
+      operationId: ArtistController_getArtistById
+      parameters:
+        - name: artistId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewArtistDto"
+      tags: *a4
+    put:
+      operationId: ArtistController_updatePassword
+      parameters:
+        - name: artistId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateArtistDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewArtistDto"
+      tags: *a4
+    delete:
+      operationId: ArtistController_deleteArtist
+      parameters:
+        - name: artistId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags: *a4
 info:
   title: Home Library API
   description: ""
@@ -221,6 +387,44 @@ components:
           type: string
         duration:
           type: number
+    ViewAlbumDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        year:
+          type: number
+        artistId:
+          type: string
+          nullable: true
+      required:
+        - id
+        - name
+        - year
+        - artistId
+    CreateAlbumDto:
+      type: object
+      properties:
+        name:
+          type: string
+        year:
+          type: number
+        artistId:
+          type: string
+      required:
+        - name
+        - year
+    UpdateAlbumDto:
+      type: object
+      properties:
+        name:
+          type: string
+        year:
+          type: number
+        artistId:
+          type: string
     ViewUserDto:
       type: object
       properties:
@@ -260,3 +464,33 @@ components:
       required:
         - oldPassword
         - newPassword
+    ViewArtistDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        grammy:
+          type: boolean
+      required:
+        - id
+        - name
+        - grammy
+    CreateArtistDto:
+      type: object
+      properties:
+        name:
+          type: string
+        grammy:
+          type: boolean
+      required:
+        - name
+        - grammy
+    UpdateArtistDto:
+      type: object
+      properties:
+        name:
+          type: string
+        grammy:
+          type: boolean
