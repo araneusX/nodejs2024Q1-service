@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
 import { ArtistModule } from './modules/artist/artist.module';
@@ -20,7 +19,7 @@ import { UserEntity } from './modules/user';
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db/sql.sqlite',
+      database: ':memory:',
       synchronize: true,
       entities: [
         AlbumEntity,
@@ -37,6 +36,6 @@ import { UserEntity } from './modules/user';
     FavoritesModule,
   ],
   controllers: [AppController, TrackController, AlbumController],
-  providers: [AppService, TrackService, AlbumService],
+  providers: [TrackService, AlbumService],
 })
 export class AppModule {}

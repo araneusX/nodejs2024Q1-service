@@ -1,5 +1,88 @@
 openapi: 3.0.0
 paths:
+  /track:
+    get:
+      operationId: TrackController_getAllTracks
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ViewTrackDto"
+      tags: &a1
+        - Track
+    post:
+      operationId: TrackController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTrackDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewTrackDto"
+      tags: *a1
+  /track/{trackId}:
+    get:
+      operationId: TrackController_getTrackById
+      parameters:
+        - name: trackId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewTrackDto"
+      tags: *a1
+    put:
+      operationId: TrackController_updatePassword
+      parameters:
+        - name: trackId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTrackDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewTrackDto"
+      tags: *a1
+    delete:
+      operationId: TrackController_deleteTrack
+      parameters:
+        - name: trackId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags: *a1
   /user:
     get:
       operationId: UserController_getAllUsers
@@ -13,7 +96,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ViewUserDto"
-      tags: &a1
+      tags: &a2
         - User
     post:
       operationId: UserController_create
@@ -31,7 +114,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ViewUserDto"
-      tags: *a1
+      tags: *a2
   /user/{userId}:
     get:
       operationId: UserController_getUserById
@@ -48,7 +131,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ViewUserDto"
-      tags: *a1
+      tags: *a2
     put:
       operationId: UserController_updatePassword
       parameters:
@@ -70,7 +153,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ViewUserDto"
-      tags: *a1
+      tags: *a2
     delete:
       operationId: UserController_deleteUser
       parameters:
@@ -80,9 +163,9 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        "204":
           description: ""
-      tags: *a1
+      tags: *a2
 info:
   title: Home Library API
   description: ""
@@ -92,6 +175,52 @@ tags: []
 servers: []
 components:
   schemas:
+    ViewTrackDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        artistId:
+          type: string
+          nullable: true
+        albumId:
+          type: string
+          nullable: true
+        duration:
+          type: number
+      required:
+        - id
+        - name
+        - artistId
+        - albumId
+        - duration
+    CreateTrackDto:
+      type: object
+      properties:
+        name:
+          type: string
+        artistId:
+          type: string
+        albumId:
+          type: string
+        duration:
+          type: number
+      required:
+        - name
+        - duration
+    UpdateTrackDto:
+      type: object
+      properties:
+        name:
+          type: string
+        artistId:
+          type: string
+        albumId:
+          type: string
+        duration:
+          type: number
     ViewUserDto:
       type: object
       properties:

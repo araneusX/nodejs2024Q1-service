@@ -20,7 +20,7 @@ export class TrackEntity extends BaseEntity {
   name: string;
 
   @Column('uuid', {
-    nullable: false,
+    nullable: true,
   })
   artistId: string;
 
@@ -29,13 +29,13 @@ export class TrackEntity extends BaseEntity {
   artist: ArtistEntity;
 
   @Column('uuid', {
-    nullable: false,
+    nullable: true,
   })
   albumId: string;
 
   @ManyToOne(() => AlbumEntity, (album) => album.id)
   @JoinColumn()
-  album: ArtistEntity;
+  album: AlbumEntity;
 
   @Column('float', {
     nullable: false,

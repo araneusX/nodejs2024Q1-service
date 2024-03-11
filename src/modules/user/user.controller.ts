@@ -4,11 +4,14 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseUUIDPipe,
   Post,
   Put,
   UseInterceptors,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdatePasswordDto, ViewUserDto } from './user.dto';
@@ -41,7 +44,10 @@ export class UserController {
   }
 
   @Post()
-  async create(@Body() userData: CreateUserDto): Promise<ViewUserDto> {
+  @HttpCode(HttpStatus.CREATED)
+  async create(
+    @Body(new ValidationPipe()) userData: CreateUserDto,
+  ): Promise<ViewUserDto> {
     const user = await this.userService.createNewUser(userData);
     return plainToInstance(ViewUserDto, user, {
       excludeExtraneousValues: true,
@@ -51,7 +57,7 @@ export class UserController {
   @Put(':userId')
   async updatePassword(
     @Param('userId', new ParseUUIDPipe()) userId: string,
-    @Body() passwordData: UpdatePasswordDto,
+    @Body(new ValidationPipe()) passwordData: UpdatePasswordDto,
   ): Promise<ViewUserDto> {
     const user = await this.userService.updatePassword(userId, passwordData);
     return plainToInstance(ViewUserDto, user, {
@@ -60,6 +66,7 @@ export class UserController {
   }
 
   @Delete(':userId')
+  @HttpCode(HttpStatus.NO_CONTENT)
   deleteUser(@Param('userId', new ParseUUIDPipe()) userId: string) {
     this.userService.deleteUser(userId);
   }

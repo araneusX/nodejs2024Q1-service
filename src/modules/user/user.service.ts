@@ -18,10 +18,19 @@ export class UserService {
     return UserEntity.find();
   }
 
-  getById(userId: string): Promise<UserEntity> {
-    return UserEntity.findOneBy({
+  async getById(userId: string): Promise<UserEntity> {
+    const user = await UserEntity.findOneBy({
       id: userId,
     });
+
+    if (!user) {
+      throw new HttpException(
+        `User with id ${userId} not found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return user;
   }
 
   async updatePassword(
@@ -31,6 +40,13 @@ export class UserService {
     const user = await UserEntity.findOneBy({
       id: userId,
     });
+
+    if (!user) {
+      throw new HttpException(
+        `User with id ${userId} does not exist`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     const isCorrectOldPassword = await compare(oldPassword, user.password);
 
