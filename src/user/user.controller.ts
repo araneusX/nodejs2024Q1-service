@@ -10,25 +10,17 @@ import {
   Put,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiBody,
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdatePasswordDto, ViewUserDto } from './user.dto';
 import { plainToInstance } from 'class-transformer';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
-@ApiTags('user')
+@ApiTags('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  @ApiOkResponse({
-    type: ViewUserDto,
-  })
   @UseInterceptors(ClassSerializerInterceptor)
   async getAllUsers(): Promise<ViewUserDto[]> {
     const users = await this.userService.getAll();
@@ -38,9 +30,6 @@ export class UserController {
   }
 
   @Get(':userId')
-  @ApiOkResponse({
-    type: ViewUserDto,
-  })
   @UseInterceptors(ClassSerializerInterceptor)
   async getUserById(
     @Param('userId', new ParseUUIDPipe()) userId: string,
@@ -52,12 +41,6 @@ export class UserController {
   }
 
   @Post()
-  @ApiBody({
-    type: CreateUserDto,
-  })
-  @ApiCreatedResponse({
-    type: ViewUserDto,
-  })
   async create(@Body() userData: CreateUserDto): Promise<ViewUserDto> {
     const user = await this.userService.createNewUser(userData);
     return plainToInstance(ViewUserDto, user, {
@@ -66,12 +49,6 @@ export class UserController {
   }
 
   @Put(':userId')
-  @ApiBody({
-    type: UpdatePasswordDto,
-  })
-  @ApiCreatedResponse({
-    type: ViewUserDto,
-  })
   async updatePassword(
     @Param('userId', new ParseUUIDPipe()) userId: string,
     @Body() passwordData: UpdatePasswordDto,

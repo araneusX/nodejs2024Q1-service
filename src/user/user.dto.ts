@@ -5,22 +5,18 @@ import { Expose } from 'class-transformer';
 
 export class CreateUserDto {
   @IsString()
-  @ApiProperty()
   @Expose()
   login: string;
 
   @IsString()
-  @ApiProperty()
   @Expose()
   password: string;
 }
 
 export class ViewUserDto {
-  @ApiProperty()
   @Expose()
   id: string;
 
-  @ApiProperty()
   @Expose()
   login: string;
 
@@ -28,23 +24,19 @@ export class ViewUserDto {
   @Expose()
   version: number;
 
-  @ApiProperty()
   @Expose()
   createdAt: number;
 
-  @ApiProperty()
   @Expose()
   updatedAt: number;
 }
 
 export class UpdatePasswordDto {
   @IsString()
-  @ApiProperty()
   @Expose()
   oldPassword: string;
 
   @IsString()
-  @ApiProperty()
   @Expose()
   newPassword: string;
 }
