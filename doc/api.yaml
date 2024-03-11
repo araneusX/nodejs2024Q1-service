@@ -332,6 +332,118 @@ paths:
         "204":
           description: ""
       tags: *a4
+  /favs:
+    get:
+      operationId: FavoritesController_getAllFavorites
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: &a5
+        - Favorites
+  /favs/track/{id}:
+    post:
+      operationId: FavoritesController_addTrack
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: *a5
+    delete:
+      operationId: FavoritesController_deleteTrack
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: *a5
+  /favs/album/{id}:
+    post:
+      operationId: FavoritesController_addAlbum
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: *a5
+    delete:
+      operationId: FavoritesController_deleteAlbum
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: *a5
+  /favs/artist/{id}:
+    post:
+      operationId: FavoritesController_addArtist
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: *a5
+    delete:
+      operationId: FavoritesController_deleteArtist
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ViewFavoritesDto"
+      tags: *a5
 info:
   title: Home Library API
   description: ""
@@ -494,3 +606,22 @@ components:
           type: string
         grammy:
           type: boolean
+    ViewFavoritesDto:
+      type: object
+      properties:
+        artists:
+          type: array
+          items:
+            $ref: "#/components/schemas/ViewArtistDto"
+        albums:
+          type: array
+          items:
+            $ref: "#/components/schemas/ViewAlbumDto"
+        tracks:
+          type: array
+          items:
+            $ref: "#/components/schemas/ViewTrackDto"
+      required:
+        - artists
+        - albums
+        - tracks
