@@ -22,7 +22,9 @@ export class AlbumEntity extends BaseEntity {
   @Column({ nullable: true })
   artistId: string;
 
-  @ManyToOne(() => ArtistEntity, (artist) => artist.id)
+  @ManyToOne(() => ArtistEntity, (artist) => artist.id, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn()
   artist: ArtistEntity;
 }

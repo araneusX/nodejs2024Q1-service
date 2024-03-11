@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 
 export class CreateUserDto {
   @IsString()
@@ -25,9 +25,11 @@ export class ViewUserDto {
   version: number;
 
   @Expose()
+  @Transform(({ value }) => +new Date(value))
   createdAt: number;
 
   @Expose()
+  @Transform(({ value }) => +new Date(value))
   updatedAt: number;
 }
 

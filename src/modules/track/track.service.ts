@@ -109,7 +109,7 @@ export class TrackService {
     if (!track) {
       throw new HttpException(
         `Track with id ${trackId} does not exist`,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.NOT_FOUND,
       );
     }
 
@@ -122,8 +122,15 @@ export class TrackService {
   }
 
   async deleteTrack(trackId: string): Promise<void> {
-    TrackEntity.delete({
+    const { affected } = await TrackEntity.delete({
       id: trackId,
     });
+
+    if (!affected) {
+      throw new HttpException(
+        `Track with id ${trackId} does not exist`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

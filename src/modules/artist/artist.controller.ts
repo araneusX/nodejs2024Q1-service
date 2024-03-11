@@ -70,7 +70,9 @@ export class ArtistController {
 
   @Delete(':artistId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteArtist(@Param('artistId', new ParseUUIDPipe()) artistId: string) {
-    this.artistService.deleteArtist(artistId);
+  async deleteArtist(
+    @Param('artistId', new ParseUUIDPipe()) artistId: string,
+  ): Promise<void> {
+    await this.artistService.deleteArtist(artistId);
   }
 }

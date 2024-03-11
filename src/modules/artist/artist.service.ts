@@ -42,7 +42,7 @@ export class ArtistService {
     if (!artist) {
       throw new HttpException(
         `Artist with id ${artistId} does not exist`,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.NOT_FOUND,
       );
     }
 
@@ -53,8 +53,15 @@ export class ArtistService {
   }
 
   async deleteArtist(artistId: string): Promise<void> {
-    ArtistEntity.delete({
+    const { affected } = await ArtistEntity.delete({
       id: artistId,
     });
+
+    if (!affected) {
+      throw new HttpException(
+        `Artist with id ${artistId} does not exist`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

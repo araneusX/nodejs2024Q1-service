@@ -67,7 +67,9 @@ export class AlbumController {
 
   @Delete(':albumId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteAlbum(@Param('albumId', new ParseUUIDPipe()) albumId: string) {
-    this.albumService.deleteAlbum(albumId);
+  async deleteAlbum(
+    @Param('albumId', new ParseUUIDPipe()) albumId: string,
+  ): Promise<void> {
+    await this.albumService.deleteAlbum(albumId);
   }
 }

@@ -24,7 +24,9 @@ export class TrackEntity extends BaseEntity {
   })
   artistId: string;
 
-  @ManyToOne(() => ArtistEntity, (artist) => artist.id)
+  @ManyToOne(() => ArtistEntity, (artist) => artist.id, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn()
   artist: ArtistEntity;
 
@@ -33,7 +35,9 @@ export class TrackEntity extends BaseEntity {
   })
   albumId: string;
 
-  @ManyToOne(() => AlbumEntity, (album) => album.id)
+  @ManyToOne(() => AlbumEntity, (album) => album.id, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn()
   album: AlbumEntity;
 

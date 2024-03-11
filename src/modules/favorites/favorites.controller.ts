@@ -41,14 +41,11 @@ export class FavoritesController {
   }
 
   @Delete('/track/:id')
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteTrack(
     @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<ViewFavoritesDto> {
-    const favorites = await this.favoritesService.addTrack(id);
-    return plainToInstance(ViewFavoritesDto, favorites, {
-      excludeExtraneousValues: true,
-    });
+  ): Promise<void> {
+    await this.favoritesService.deleteTrack(id);
   }
 
   @Post('/album/:id')
@@ -63,14 +60,11 @@ export class FavoritesController {
   }
 
   @Delete('/album/:id')
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteAlbum(
     @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<ViewFavoritesDto> {
-    const favorites = await this.favoritesService.addAlbum(id);
-    return plainToInstance(ViewFavoritesDto, favorites, {
-      excludeExtraneousValues: true,
-    });
+  ): Promise<void> {
+    await this.favoritesService.deleteAlbum(id);
   }
 
   @Post('/artist/:id')
@@ -85,13 +79,10 @@ export class FavoritesController {
   }
 
   @Delete('/artist/:id')
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteArtist(
     @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<ViewFavoritesDto> {
-    const favorites = await this.favoritesService.addArtist(id);
-    return plainToInstance(ViewFavoritesDto, favorites, {
-      excludeExtraneousValues: true,
-    });
+  ): Promise<void> {
+    await this.favoritesService.deleteArtist(id);
   }
 }

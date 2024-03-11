@@ -20,4 +20,10 @@ export class ArtistEntity extends BaseEntity {
     default: false,
   })
   grammy: boolean;
+
+  @OneToMany(() => AlbumEntity, (album) => album.artist, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+  })
+  albums: AlbumEntity[];
 }

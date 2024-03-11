@@ -6,10 +6,10 @@ import { ENV } from 'src/constants';
 
 @Injectable()
 export class UserService {
-  createNewUser({ password, login }: CreateUserDto): Promise<UserEntity> {
+  async createNewUser({ password, login }: CreateUserDto): Promise<UserEntity> {
     const user = new UserEntity();
     user.login = login;
-    user.password = password;
+    user.password = await hash(password, ENV.CRYPT_SALT);
 
     return user.save();
   }
@@ -44,7 +44,7 @@ export class UserService {
     if (!user) {
       throw new HttpException(
         `User with id ${userId} does not exist`,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.NOT_FOUND,
       );
     }
 
@@ -63,8 +63,15 @@ export class UserService {
   }
 
   async deleteUser(userId: string): Promise<void> {
-    UserEntity.delete({
+    const { affected } = await UserEntity.delete({
       id: userId,
     });
+
+    if (!affected) {
+      throw new HttpException(
+        `User with id ${userId} does not exist`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

@@ -16,15 +16,21 @@ export class UserEntity extends BaseEntity {
   @Column('varchar')
   login: string;
 
+  @Column()
+  password: string;
+
   @VersionColumn()
   version: number;
 
-  @Column({ select: false })
-  password: string;
+  @CreateDateColumn({
+    type: 'datetime',
+    default: () => "STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')",
+  })
+  createdAt: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({
+    type: 'datetime',
+    default: () => "STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')",
+  })
+  updatedAt: string;
 }

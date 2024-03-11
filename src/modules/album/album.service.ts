@@ -78,7 +78,7 @@ export class AlbumService {
     if (!album) {
       throw new HttpException(
         `Album with id ${albumId} does not exist`,
-        HttpStatus.BAD_REQUEST,
+        HttpStatus.NOT_FOUND,
       );
     }
 
@@ -90,8 +90,15 @@ export class AlbumService {
   }
 
   async deleteAlbum(albumId: string): Promise<void> {
-    AlbumEntity.delete({
+    const { affected } = await AlbumEntity.delete({
       id: albumId,
     });
+
+    if (!affected) {
+      throw new HttpException(
+        `Album with id ${albumId} does not exist`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }

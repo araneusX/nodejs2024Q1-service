@@ -67,7 +67,9 @@ export class UserController {
 
   @Delete(':userId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteUser(@Param('userId', new ParseUUIDPipe()) userId: string) {
-    this.userService.deleteUser(userId);
+  async deleteUser(
+    @Param('userId', new ParseUUIDPipe()) userId: string,
+  ): Promise<void> {
+    await this.userService.deleteUser(userId);
   }
 }
