@@ -110,4 +110,27 @@ export class EnvService {
       24 * 60 * 60 * 1000
     );
   }
+
+  get DB_HOST() {
+    return parseVariable(this.configService.get('DB_HOST'), 'localhost');
+  }
+
+  get DB_PORT() {
+    return parseVariable(this.configService.get('DB_PORT'), 5432);
+  }
+
+  get DB_USERNAME() {
+    return parseVariable(this.configService.get('DB_USERNAME'), 'nodejs2024q1');
+  }
+
+  get DB_PASSWORD() {
+    return parseVariable(this.configService.get('DB_PASSWORD'), 'nodejs2024q1');
+  }
+
+  get DB_NAME() {
+    return parseVariable(
+      this.configService.get('DB_NAME'),
+      'nodejs2024q1-service',
+    );
+  }
 }
