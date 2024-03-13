@@ -30,5 +30,8 @@ lerna-debug.log*
 # IDE - VSCode
 .vscode/*
 
-#ENV
+# ENV
 .env
+
+# DB
+database/data

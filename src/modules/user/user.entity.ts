@@ -22,15 +22,9 @@ export class UserEntity extends BaseEntity {
   @VersionColumn()
   version: number;
 
-  @CreateDateColumn({
-    type: 'datetime',
-    default: () => "STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')",
-  })
+  @CreateDateColumn()
   createdAt: string;
 
-  @UpdateDateColumn({
-    type: 'datetime',
-    default: () => "STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW')",
-  })
+  @UpdateDateColumn()
   updatedAt: string;
 }
