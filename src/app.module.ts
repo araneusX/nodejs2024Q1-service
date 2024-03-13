@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
@@ -15,6 +15,7 @@ import { ArtistEntity } from './modules/artist';
 import { FavoritesEntity } from './modules/favorites';
 import { TrackEntity } from './modules/track';
 import { UserEntity } from './modules/user';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -34,8 +35,10 @@ import { UserEntity } from './modules/user';
     TrackModule,
     AlbumModule,
     FavoritesModule,
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.env.development', '.env'],
+      isGlobal: true,
+    }),
   ],
-  controllers: [AppController, TrackController, AlbumController],
-  providers: [TrackService, AlbumService],
 })
 export class AppModule {}
