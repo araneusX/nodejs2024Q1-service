@@ -23,9 +23,11 @@ services:
   app:
     container_name: nodejs2024q1-service-app
     build: .
+    command: npm run start:dev
     restart: unless-stopped
     volumes:
-      - .env:/app/.env
+      - ./.env:/app/.env
+      - ./src:/app/src
     ports:
       - ${PORT}:${PORT}
     networks:
