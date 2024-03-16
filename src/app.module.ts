@@ -7,6 +7,7 @@ import { FavoritesModule } from './modules/favorites/favorites.module';
 import { ConfigModule } from '@nestjs/config';
 import { DbModule } from './modules/db/db.module';
 import { EnvService } from './utils';
+import { AppController } from './app.controller';
 
 @Module({
   providers: [EnvService],
@@ -21,5 +22,6 @@ import { EnvService } from './utils';
     }),
     DbModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
