@@ -22,11 +22,13 @@
     "require": ["tsconfig-paths/register"]
   },
   "watchOptions": {
-    "watchFile": "dynamicPriorityPolling",
+    "watchFile": "priorityPollingInterval",
     "watchDirectory": "dynamicPriorityPolling",
     "excludeDirectories": [
+      "node_modules",
       "**/node_modules",
-      "dist"
+      "dist",
+      "database",
     ]
   }
 }
