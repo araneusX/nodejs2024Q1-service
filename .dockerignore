@@ -4,5 +4,4 @@ node_modules
 dist
 .env
 
-database/data
-database/Dockerfile
+database
