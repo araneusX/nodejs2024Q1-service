@@ -16,7 +16,7 @@
     "start:dev:db": "concurrently --kill-others --names db,app \"docker-compose up db\" \"npm run start:dev\"",
     "containers:start:dev": "docker-compose up",
     "containers:build": "docker-compose -f docker-compose.build.yml build && docker push ",
-    "containers:push": "cross-var docker login -u=$npm_config_name -p=$npm_config_password && docker push araneusx/nodejs2024q1-service-db && docker push araneusx/nodejs2024q1-service-app",
+    "containers:push": "docker tag nodejs2024q1-service-db araneusx/nodejs2024q1-service-db && docker tag nodejs2024q1-service-app araneusx/nodejs2024q1-service-app && docker push araneusx/nodejs2024q1-service-db && docker push araneusx/nodejs2024q1-service-app",
     "containers:scan": "docker scan --login && docker scan nodejs2024q1-service-app && docker scan nodejs2024q1-service-db",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest --testMatch \"<rootDir>/*.spec.ts\" --noStackTrace --runInBand",
