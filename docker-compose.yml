@@ -3,7 +3,6 @@ version: '3.8'
 networks:
   nodejs2024q1-service:
     driver: bridge
-    external: true
 
 services:
   db:
@@ -11,14 +10,12 @@ services:
     platform: linux/amd64 #for platform error on Apple M1 chips
     image: araneusx/nodejs2024q1-service-db:latest
     restart: unless-stopped
-    command: ["postgres", "-c", "log_statement=all", "-c",  "logging_collector=on", "-c", "log_destination=stderr", "-c", "log_directory=/logs"]
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - ./database/data/:/var/lib/postgresql/data/
-      - ./database/logs/:/logs
     ports:
       - ${DB_PORT}:${DB_PORT}
     networks:
@@ -31,7 +28,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./.env:/app/.env
-      - ./src:/app/src
+      - ./src/:/app/src/
     ports:
       - ${PORT}:${PORT}
     networks:
@@ -39,5 +36,5 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: nodejs2024q1-service-app-db
+      DB_HOST: ${DB_HOST:-nodejs2024q1-service-app-db}
 
