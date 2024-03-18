@@ -6,7 +6,7 @@ export const DEFAULTS = {
   TOKEN_EXPIRE_TIME_MS: 60 * 60 * 1000,
   TOKEN_REFRESH_EXPIRE_TIME_MS: 24 * 60 * 60 * 1000,
   DB_HOST: 'localhost',
-  DB_PORT: 432,
+  DB_PORT: 5432,
   DB_USERNAME: 'nodejs2024q1',
   DB_PASSWORD: 'nodejs2024q1',
   DB_NAME: 'nodejs2024q1-service',
