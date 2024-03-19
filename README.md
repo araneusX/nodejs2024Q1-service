@@ -1,37 +1,40 @@
 # Home Library Service
 
-## Prerequisites
-
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
-
-## Downloading
-
+## Steps to start:
+### 1. Clone this repo
 ```
-git clone {repository URL}
+git clone https://github.com/araneusX/nodejs2024Q1-service.git
 ```
 
-## Installing NPM modules
+### 2. Go to the develop branch
+```
+git checkout develop
+```
+
+### 3. Install NPM modules
 
 ```
 npm install
 ```
+_**Please note!**_
+_If you have problems with the installation, try using the `npm ci` command. Also you can try running `npm install` with `--legacy-peer-deps` flag_
+_If nothing helps, please contact me!
+[discord](https://discordapp.com/users/673448628907540490) or [telegram](https://t.me/araneus_x)_
 
-## Running application
+### 4. Optionaly create .env file (based on .env.example) and define a PORT variable.
+
+### 5. Runn application
 
 ```
 npm start
 ```
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+After starting the app on port (specified in .env file or 4000 as default) you can open
+in your browser OpenAPI documentation by typing http://localhost:{PORT}/api.
 
-## Testing
+### 6. Run tests
 
-After application running open new terminal and enter:
-
-To run all tests without authorization
+After application running open **new terminal** and enter:
 
 ```
 npm run test
@@ -43,30 +46,3 @@ To run only one of all test suites
 npm run test -- <path to suite>
 ```
 
-To run all test with authorization
-
-```
-npm run test:auth
-```
-
-To run only specific test suite with authorization
-
-```
-npm run test:auth -- <path to suite>
-```
-
-### Auto-fix and format
-
-```
-npm run lint
-```
-
-```
-npm run format
-```
-
-### Debugging in VSCode
-
-Press <kbd>F5</kbd> to debug.
-
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
