@@ -1,5 +1,5 @@
 # Home Library Service
-# Part II - Containerization and Database (PostgreSQL) & ORM
+## Part II - Containerization and Database (PostgreSQL) & ORM
 
 To run the application, the next images pushed to Docker Hub are used:
 
@@ -23,7 +23,6 @@ git checkout part-2
 ### 4. Optionally change environment variables in the .env file.
 The .env file is already included in the repository for this task. You can simply leave it as is, or change the values of variables. Do not delete the .env file or values of variables as these actions may break the application.
 
-
 ### 5. Run application in Docker containers
 
 ```
@@ -31,9 +30,9 @@ npm run containers:start
 ```
 
 _**Please note!**_
-_If you have problems with starting your application, check if the Docker service is running and if there are **NOT other containers running on the same PORT and DB_PORT (4000 and 5432 by default)**_
-_If nothing helps, please contact me!
-[discord](https://discordapp.com/users/673448628907540490) or [telegram](https://t.me/araneus_x)_
+_If you have problems with starting your application, check if the Docker service is running and if there are **NOT other containers running on the same PORT and DB_PORT (4000 and 5432 by default).**_
+
+### _If nothing helps, please contact me in [discord](https://discordapp.com/users/673448628907540490) or [telegram](https://t.me/araneus_x)!_
 
 
 ### 6. Profit
@@ -47,7 +46,9 @@ For example:
 cd path_to_project_directory/database
 sudo chmod 777 data
 ```
-- Migrations are used to create database entities. The migration files for the database are located in the src/modules/db/migrations directory. Migrations are applied automatically when the application starts.
+- Migrations are used to create database entities. The migration files for the database are located in the `src/modules/db/migrations` directory.
+
+  **Migrations are applied automatically when the application starts**.
 
 - TypeORM is used to work with entities in the database
 
@@ -55,4 +56,12 @@ sudo chmod 777 data
 
 ```
 npm run containers:scan
+```
+
+- If you want to run tests on your machine, you need to install application on your machine first:
+```
+npm install
+```
+```
+npm test
 ```
