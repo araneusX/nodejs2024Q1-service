@@ -17,5 +17,18 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "watchOptions": {
+    "watchFile": "priorityPollingInterval",
+    "watchDirectory": "dynamicPriorityPolling",
+    "excludeDirectories": [
+      "node_modules",
+      "**/node_modules",
+      "dist",
+      "database",
+    ]
   }
 }

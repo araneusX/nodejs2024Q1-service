@@ -1,14 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { getEnv } from './constants';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { stringify } from 'yaml';
 import { writeFileSync } from 'fs';
-import { config } from 'dotenv';
-config();
+import { ConfigService } from '@nestjs/config';
+import { EnvService } from './utils';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+  const env = new EnvService(configService);
 
   const config = new DocumentBuilder()
     .setTitle('Home Library API')
@@ -21,6 +23,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(getEnv().PORT);
+  await app.listen(env.PORT);
 }
 bootstrap();
