@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, LogLevel } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { parseVariable } from './parseVariable';
 import { parsePeriod } from './parsePeriod';
@@ -71,5 +71,48 @@ export class EnvService {
 
   get DB_NAME() {
     return parseVariable(this.configService.get('DB_NAME'), DEFAULTS.DB_NAME);
+  }
+
+  get LOG_LEVEL() {
+    const logLevels: LogLevel[] = [
+      'debug',
+      'error',
+      'fatal',
+      'log',
+      'verbose',
+      'warn',
+    ];
+
+    const level = parseVariable(
+      this.configService.get('LOG_LEVEL'),
+      DEFAULTS.LOG_LEVEL,
+    );
+
+    const logLevel = level
+      .split(' ')
+      .filter((level): level is LogLevel =>
+        (logLevels as string[]).includes(level),
+      );
+
+    return logLevel;
+  }
+
+  get LOG_MAX_FILE_SIZE() {
+    return (
+      parseVariable(
+        this.configService.get('LOG_MAX_FILE_SIZE_KB'),
+        DEFAULTS.LOG_MAX_FILE_SIZE_KB,
+      ) * 1024
+    );
+  }
+
+  get LOG_STDOUT() {
+    return parseVariable(
+      this.configService.get('LOG_STDOUT'),
+      DEFAULTS.LOG_STDOUT,
+    );
+  }
+  get LOG_FILE() {
+    return parseVariable(this.configService.get('LOG_FILE'), DEFAULTS.LOG_FILE);
   }
 }
