@@ -37,6 +37,6 @@ npm run test:auth
 ```
 
 _**Please note!**_
-_If you have problems with starting your application, check if the Docker service is running and if there are **NOT other containers running on the same PORT and DB_PORT (4000 and 5432 by default).**_
+_If you have problems with starting your application, check if the Docker service is running and if there are **NOT other containers running on the same DB_PORT (5432 by default).**_
 
 ### _If nothing helps, please contact me in [discord](https://discordapp.com/users/673448628907540490) or [telegram](https://t.me/araneus_x)!_
