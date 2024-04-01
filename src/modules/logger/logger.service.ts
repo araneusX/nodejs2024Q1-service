@@ -35,6 +35,7 @@ export class CustomLogger implements LoggerService {
 
   private logsPath = join(__dirname, '..', '..', '..', 'logs');
   private logFilePath = join(this.logsPath, `${Date.now()}.log`);
+  private errorFilePath = join(this.logsPath, `${Date.now()}.error.log`);
 
   private async logIntoFile(
     type: string,
@@ -62,6 +63,19 @@ export class CustomLogger implements LoggerService {
 
       if (size > this.env.LOG_MAX_FILE_SIZE - 1024) {
         this.logFilePath = join(this.logsPath, `${Date.now()}.log`);
+      }
+
+      if (['error', 'fatal'].includes(type)) {
+        await appendFile(
+          this.errorFilePath,
+          `${new Date().toISOString()}: ${type.toUpperCase()}${context} ${message}\n`,
+        );
+
+        const { size } = await stat(this.errorFilePath);
+
+        if (size > this.env.LOG_MAX_FILE_SIZE - 1024) {
+          this.errorFilePath = join(this.logsPath, `${Date.now()}.error.log`);
+        }
       }
     } catch (error) {
       this.consoleLogger.error(error);
