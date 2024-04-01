@@ -9,6 +9,17 @@ export class UserService {
   constructor(private readonly envService: EnvService) {}
 
   async createNewUser({ password, login }: CreateUserDto): Promise<UserEntity> {
+    // const existedUser = await UserEntity.findOneBy({
+    //   login: login,
+    // });
+
+    // if (existedUser) {
+    //   throw new HttpException(
+    //     `User with login ${login} already exists`,
+    //     HttpStatus.CONFLICT,
+    //   );
+    // }
+
     const user = new UserEntity();
     user.login = login;
     user.password = await hash(password, this.envService.CRYPT_SALT);

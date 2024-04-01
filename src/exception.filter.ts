@@ -27,7 +27,22 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    let message: unknown = null;
+
+    if (exception instanceof HttpException) {
+      const data = exception.getResponse();
+
+      if (typeof data === 'string') {
+        message = data;
+      } else if ('message' in data) {
+        message = data.message;
+      }
+    } else if (exception instanceof Error) {
+      message = exception.message;
+    }
+
     const responseBody = {
+      message: message ?? 'Internal server error',
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
@@ -41,26 +56,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
       this.env.LOG_LEVEL.includes('error');
 
     if (isLog) {
-      if (exception instanceof HttpException) {
-        const data = exception.getResponse();
-
-        if (typeof data === 'string') {
-          this.logger.error(data, 'Exception Filter');
-          return;
-        }
-
-        if ('message' in data) {
-          this.logger.error(data.message, 'Exception Filter');
-          return;
-        }
-      }
-
-      if (exception instanceof Error) {
-        this.logger.error(exception.message, 'Exception Filter');
-        return;
-      }
-
-      this.logger.error('An unknown error has occurred', 'Exception Filter');
+      this.logger.error(
+        message ?? 'An unknown error has occurred',
+        'Exception Filter',
+      );
     }
   }
 }

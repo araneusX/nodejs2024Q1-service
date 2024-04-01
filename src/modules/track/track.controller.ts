@@ -10,6 +10,7 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -17,9 +18,11 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateTrackDto, UpdateTrackDto, ViewTrackDto } from './track.dto';
 import { TrackService } from './track.service';
 import { plainToInstance } from 'class-transformer';
+import { AuthGuard } from '../auth';
 
 @Controller('track')
 @ApiTags('Track')
+@UseGuards(AuthGuard)
 export class TrackController {
   constructor(private readonly trackService: TrackService) {}
 

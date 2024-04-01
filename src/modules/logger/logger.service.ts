@@ -4,7 +4,8 @@ import {
   Injectable,
   LogLevel,
 } from '@nestjs/common';
-import { appendFileSync, existsSync, mkdirSync, stat } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
+import { appendFile, stat } from 'fs/promises';
 import { join } from 'path';
 import { EnvService } from 'src/utils';
 
@@ -35,7 +36,7 @@ export class CustomLogger implements LoggerService {
   private logsPath = join(__dirname, '..', '..', '..', 'logs');
   private logFilePath = join(this.logsPath, `${Date.now()}.log`);
 
-  private logIntoFile(
+  private async logIntoFile(
     type: string,
     message: any,
     ...optionalParams: [...any, string?]
@@ -52,18 +53,16 @@ export class CustomLogger implements LoggerService {
         mkdirSync(this.logsPath);
       }
 
-      appendFileSync(
+      await appendFile(
         this.logFilePath,
         `${new Date().toISOString()}: ${type.toUpperCase()}${context} ${message}\n`,
       );
 
-      stat(this.logFilePath, (err, stats) => {
-        if (err === null) {
-          if (stats.size > this.env.LOG_MAX_FILE_SIZE - 1024) {
-            this.logFilePath = join(this.logsPath, `${Date.now()}.log`);
-          }
-        }
-      });
+      const { size } = await stat(this.logFilePath);
+
+      if (size > this.env.LOG_MAX_FILE_SIZE - 1024) {
+        this.logFilePath = join(this.logsPath, `${Date.now()}.log`);
+      }
     } catch (error) {
       this.consoleLogger.error(error);
     }
