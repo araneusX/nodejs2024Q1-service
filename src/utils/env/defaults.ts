@@ -10,4 +10,8 @@ export const DEFAULTS = {
   DB_USERNAME: 'nodejs2024q1',
   DB_PASSWORD: 'nodejs2024q1',
   DB_NAME: 'nodejs2024q1-service',
+  LOG_LEVEL: 'log',
+  LOG_MAX_FILE_SIZE_KB: 1000,
+  LOG_STDOUT: true,
+  LOG_FILE: true,
 };

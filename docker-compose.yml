@@ -29,6 +29,7 @@ services:
     volumes:
       - ./.env:/app/.env
       - ./src/:/app/src/
+      - ./logs/:/app/logs/
     ports:
       - ${PORT}:${PORT}
     networks:

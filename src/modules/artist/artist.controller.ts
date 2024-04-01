@@ -10,6 +10,7 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -17,9 +18,11 @@ import { ApiTags } from '@nestjs/swagger';
 import { ArtistService } from './artist.service';
 import { CreateArtistDto, UpdateArtistDto, ViewArtistDto } from './artist.dto';
 import { plainToInstance } from 'class-transformer';
+import { AuthGuard } from '../auth';
 
 @Controller('artist')
 @ApiTags('Artist')
+@UseGuards(AuthGuard)
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}
 

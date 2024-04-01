@@ -8,15 +8,18 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FavoritesService } from './favorites.service';
 import { plainToInstance } from 'class-transformer';
 import { ViewFavoritesDto } from './favorites.dto';
+import { AuthGuard } from '../auth';
 
 @Controller('favs')
 @ApiTags('Favorites')
+@UseGuards(AuthGuard)
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
